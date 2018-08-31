@@ -9,9 +9,9 @@ var listingData, server;
 var requestHandler = function(request, response) {
   var parsedUrl = url.parse(request.url);
   if( request.method === 'GET' && parsedUrl.pathname === '/listing'){
-    console.log("/listing");
+      response.  
   } else {
-    
+  
   }
   /*
     Your request handler should send listingData in the JSON format if a GET request 
@@ -22,10 +22,7 @@ var requestHandler = function(request, response) {
    */
 };
 
-http.createServer(function(request,response){
-  console.log("Server created");
-  requestHandler(request,response);
-}).listen(8080);
+http.createServer(requestHandler).listen(8080);
 
 fs.readFile('listings.json', 'utf8', function(err, data) {
   /*
