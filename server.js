@@ -16,13 +16,14 @@ var requestHandler = function(request, response) {
     http://stackoverflow.com/questions/17251553/nodejs-request-object-documentation
    */
   if( request.method === 'GET' && parsedUrl.pathname === '/listings'){  
-    response.writeHead(200,{'Content-Type':'applications/json'});
-    response.end(JSON.stringify(JSON.parse(listingData)));
+    response.writeHead(200,{'Content-Type':'applications/json'}); // HTTP header of the response
+    response.write(JSON.stringify(JSON.parse(listingData)));      // body 
   } else {
-    response.writeHead(404,{'Content-Type':'applications/json'});
+    response.writeHead(404,{'Content-Type':'text/plain'});
     response.write("Bad gateway error");
-    response.end();
-  }
+  } 
+  response.end(); //end the response, signal the server response is completed
+
 };
 
 
@@ -42,5 +43,6 @@ fs.readFile('listings.json', 'utf8', function(err, data) {
     });
   }
 });
+
 
 
