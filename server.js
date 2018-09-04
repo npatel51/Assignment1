@@ -15,6 +15,7 @@ var requestHandler = function(request, response) {
     HINT: explore the request object and its properties 
     http://stackoverflow.com/questions/17251553/nodejs-request-object-documentation
    */
+
   if( request.method === 'GET' && parsedUrl.pathname === '/listings'){  
     response.writeHead(200,{'Content-Type':'applications/json'}); // HTTP header of the response
     response.write(JSON.stringify(JSON.parse(listingData)));      // body 
@@ -32,16 +33,16 @@ fs.readFile('listings.json', 'utf8', function(err, data) {
     This callback function should save the data in the listingData variable, 
     then start the server. 
    */
-   if( err ){
-     listingData = {'message':'I/O error, file not found!'};
-  } else {
-    listingData = data;
+   if( err ){ 
+     listingData = JSON.stringify({'message':'I/O error'});
+    }else{
+      listingData = data;
+    }
     server = http.createServer(requestHandler); //server created
     // listening to requests on port 8080
     server.listen(port,function(){
         console.log("server listening on: http://localhost:8080");
     });
-  }
 });
 
 
